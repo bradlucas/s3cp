@@ -1,0 +1,10 @@
+S3cp
+
+s3cp - Amazon S3 command line cp program
+
+"As a user of Amazon's S3 service for hosting files and storing backups I've longed for a simple command line copy progam. s3cp is the result." - Brad Lucas
+
+S3cp works like the Unix cp program allowing you to put files into S3 or to retrieve them from the command line.
+
+See: http://www.beaconhill.com/solutions/opensource/s3cp.html
+
