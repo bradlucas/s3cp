@@ -1,0 +1,177 @@
+<project name="s3cp" default="all" basedir=".">
+
+  <property file="${basedir}/build.properties"/>
+
+  <property name="project.version" value="1.0"/>
+  <property name="project.implementation.title" value="Yahoo Quote Downloader"/>
+  <property name="project.specification.title" value="Yahoo Quote Downloader (Java)"/>
+  <property name="project.main.class" value="com.beaconhill.s3cp.CmdLine"/>
+
+  <property name="global.vendor.name" value="Beacon Hill, Inc."/>
+
+  <property name="project.structure.dist" value="${basedir}/dist"/>
+  <property name="project.structure.src" value="${basedir}/src"/>
+  <property name="project.structure.conf" value="${basedir}/src/conf"/>
+  <property name="project.structure.test" value="${basedir}/test"/>
+  <property name="project.structure.build" value="${basedir}/build"/>
+  <property name="project.structure.classes.src" value="${project.structure.build}/classes/src"/>
+  <property name="project.structure.classes.test" value="${project.structure.build}/classes/test"/>
+  <property name="project.structure.temp" value="${project.structure.build}/temp"/>
+
+  <property name="version.java.jvm" value="1.5"/>
+
+  <property name="project.jar" value="${ant.project.name}-${project.version}.jar"/>
+
+  <!-- jar files in the lib directory -->
+  <property name="project.structure.lib" value="${basedir}/lib"/>
+  <property name="commons-cli.jar" value="commons-cli-1.1.jar"/>
+  <property name="commons-codec.jar" value="commons-codec-1.3.jar"/>
+  <property name="commons-httpclient.jar" value="commons-httpclient-3.0.1.jar"/>
+  <property name="commons-io.jar"  value="commons-io-1.4.jar"/>
+  <property name="commons-logging.jar" value="commons-logging-1.1.1.jar"/>
+  <property name="jets3t.jar" value="jets3t-0.8.1a.jar"/>
+  <property name="log4j.jar" value="log4j-1.2.15.jar"/>
+  <property name="one-jar-ant-task.jar" value="one-jar-ant-task-0.96.jar"/>
+  <property name="junit.jar" value="junit-4.4.jar"/>
+
+  <echo message="project.version = ${project.version}"/>
+
+  <path id="javac.classpath">
+        <fileset dir="${project.structure.lib}">
+	  <include name="**/*.jar"/>
+	</fileset>
+  </path>
+
+
+  <target name="clean" description="Clean build directory">
+    <echo message="common.clean"/>
+    <delete dir="${project.structure.build}"/>
+    <delete dir="${project.structure.dist}"/>
+  </target>
+
+
+  <target name="init" depends="clean" description="init">
+    <echo message="common.init"/>
+    <delete dir="${project.structure.temp}"/>
+    <mkdir dir="${project.structure.dist}"/>
+    <mkdir dir="${project.structure.build}"/>
+    <mkdir dir="${project.structure.classes.src}"/>
+    <mkdir dir="${project.structure.classes.test}"/>
+    <mkdir dir="${project.structure.temp}"/>
+    <tstamp>
+      <format property="build.timestamp" pattern="yyyy-MM-dd'T'HH:mm:ss" />
+    </tstamp>
+    <echoproperties destfile="${project.structure.temp}/build.properties"/>
+  </target>
+
+  <target name="compile" depends="init" description="Compile project">
+    <echo message="common.compile"/>
+    <javac classpathref="javac.classpath"
+	   srcdir="${project.structure.src}"
+	   destdir="${project.structure.build}"
+	   debug="true"
+	   failonerror="true"
+	   deprecation="true"
+	   target="${version.java.jvm}"
+	   />
+
+    <copy todir="${project.structure.build}"
+	  file="${basedir}/src/conf/log4j.properties"/>
+
+  </target>
+
+
+  <target name="create-manifest" depends="init">
+    <delete file="${project.structure.temp}/MANIFEST.MF"/>
+    <manifest file="${project.structure.temp}/MANIFEST.MF">
+      <attribute name="Built-By" value="${user.name}"/>
+      <attribute name="Built-On" value="${os.name}"/>
+      <section name="${ant.project.name}">
+	<attribute name="Specification-Title" value="${project.specification.title}"/>
+	<attribute name="Specification-Version" value="${project.version}"/>
+	<attribute name="Specification-Vendor" value="${global.vendor.name}"/>
+	<attribute name="Implementation-Title" value="${project.implementation.title}"/>
+	<attribute name="Implementation-Version" value="${build.timestamp}"/>
+	<attribute name="Implementation-Vendor" value="${global.vendor.name}"/>
+      </section>
+    </manifest>
+  </target>
+
+  <target name="manifest-add-main" if="project.main.class">
+    <manifest file="${project.structure.temp}/MANIFEST.MF" mode="update">
+      <attribute name="Main-Class" value="${project.main.class}"/>
+    </manifest>
+  </target>
+
+
+  <target name="jar" depends="compile, create-manifest, manifest-add-main">
+    <echo message="Building jar ${project.structure.dist}/${project.jar}"/>
+    <delete file="${project.structure.dist}/${project.jar}"/>
+    <jar jarfile="${project.structure.dist}/${project.jar}"
+	 basedir="${project.structure.build}"
+	 manifest="${project.structure.temp}/MANIFEST.MF"
+	 excludes="**/*Test.class, **/*Test$*.class"
+	 />
+  </target>
+
+  <taskdef name="one-jar" classname="com.simontuffs.onejar.ant.OneJarTask"
+	   classpath="${project.structure.lib}/${one-jar-ant-task.jar}" onerror="report"/>
+
+
+  <target name="one-jar" depends="jar" description="package sitebuilder to run as a standalone jar">
+    <one-jar destfile="${project.structure.dist}/${ant.project.name}-cmdline-${project.version}.jar" manifest="${project.structure.conf}/${ant.project.name}.mf">
+      <main>
+	<fileset dir="${project.structure.build}"
+		 excludes="**/temp/**"/>
+      </main>
+      <lib>
+        <fileset dir="${project.structure.lib}">
+	  <include name="**/*.jar"/>
+	</fileset>
+      </lib>
+    </one-jar>
+  </target>
+
+
+  <target name="all" depends="package"/>
+
+
+  <target name="package" depends="one-jar">
+    <zip destfile="${basedir}/dist/s3cp-${project.version}.zip"
+	 basedir="${basedir}/.."
+	 includes="s3cp/**"
+	 excludes="**/build/**, **/classes/**, **/doc/**, **/src/elisp/**, s3cp/conf/**, **/CVS, **/dist/*.zip, **/dist/*.gz"
+	 />
+    <tar destfile="${basedir}/dist/s3cp-${project.version}.tar.gz" compression="gzip"
+	 basedir="${basedir}/.."
+	 includes="s3cp/**"
+	 excludes="**/build/**, **/classes/**, **/doc/**, **/src/elisp/**, s3cp/conf/**, **/CVS, **/dist/*.zip, **/dist/*.gz"
+	 />
+  </target>
+
+  <!-- Debugging -->
+  <pathconvert pathsep="${line.separator}|   |-- "
+	       property="echo.path.compile"
+	       refid="javac.classpath">
+  </pathconvert>
+
+  <target name="debug-classpath" description="Pretty print classpath for debugging" >
+    <echo message="|-- compile classpath"/>
+    <echo message="|   |"/>
+    <echo message="|   |-- ${echo.path.compile}"/>
+  </target>
+
+  <target name="dp" description="Debug Print">
+    <echo message="${ant.project.name}"/>
+    <echo message="${project.structure.lib}"/>
+    <echo message="${commons-cli.jar}"/>
+    <echo message="${commons-codec.jar}"/>
+    <echo message="${commons-httpclient.jar}"/>
+    <echo message="${commons-io.jar}"/>
+    <echo message="${commons-logging.jar}"/>
+    <echo message="${jets3t.jar}"/>
+    <echo message="${log4j.jar}"/>
+    <echo message="${one-jar-ant-task.jar}"/>
+  </target>
+
+</project>
