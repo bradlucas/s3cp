@@ -1,5 +1,14 @@
 
 --------------
+Version 0.1.11
+--------------
+
+Improvments for Windows.
+ - Detect home directory
+ - cmd file to launch s3cp added script
+Courtesy https://github.com/sourishkrout (Sebastian Tiedtke)
+
+--------------
 Version 0.1.10
 --------------
 
