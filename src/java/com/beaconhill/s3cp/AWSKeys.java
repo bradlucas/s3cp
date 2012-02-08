@@ -56,8 +56,15 @@ public class AWSKeys {
 	}
 
 	public void loadFromSystem(String accountName) {
-		String propFile = System.getenv().get("HOME")
-				+ "/.s3cp/s3cp.properties";
+		String propFile = System.getenv().get("HOME");
+		
+		// The name of Windows' env for the home directory is a little different.
+		if (propFile == null) {
+			propFile = System.getenv().get("HOMEPATH");
+		}
+		
+		propFile += "/.s3cp/s3cp.properties";
+				
 		System.out.println(propFile);
 		if (propFile != null) {
 			File f = new File(propFile);
