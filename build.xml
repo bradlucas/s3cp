@@ -3,8 +3,8 @@
   <property file="${basedir}/build.properties"/>
 
   <property name="project.version" value="1.0"/>
-  <property name="project.implementation.title" value="Yahoo Quote Downloader"/>
-  <property name="project.specification.title" value="Yahoo Quote Downloader (Java)"/>
+  <property name="project.implementation.title" value="s3cp - Amazon S3 command line cp program"/>
+  <property name="project.specification.title" value="s3cp - Amazon S3 command line cp program"/>
   <property name="project.main.class" value="com.beaconhill.s3cp.CmdLine"/>
 
   <property name="global.vendor.name" value="Beacon Hill, Inc."/>
