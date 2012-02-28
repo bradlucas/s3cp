@@ -36,7 +36,7 @@ There is a script called s3cp.sh in ~/secp/src/scripts that you setup with an al
 
 Edit the following with the correct path and put in your .bashrc file
 
-alias s3cp=$HOME/work/s3cp/src/scripts/s3cp.sh
+     alias s3cp=$HOME/work/s3cp/src/scripts/s3cp.sh
 
 With that, s3cp will run from the command line through the alias
 
