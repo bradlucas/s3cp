@@ -9,9 +9,10 @@ S3cp works like the Unix cp program allowing you to put files into S3 or to retr
 
 ### To build s3cp
 
-To build s3cp run Ant
+To build s3cp run Ant.
 
-   $ ant
+
+    $ ant
 
 The dist folder will contain the compiled application name s3cp-cmdline-VERSION.jar. This jar is built with 'one-jar' so you can run it with the following command.
 
@@ -27,8 +28,8 @@ Inside the directory create a file called s3cp.properties
 
 In the s3cp.properties file create the following entries:
 
-   s3.accessKey=YOUR-VALUE-HERE
-   s3.secretKey=YOUR-VALUE-HERE
+    s3.accessKey=YOUR-VALUE-HERE
+    s3.secretKey=YOUR-VALUE-HERE
 
 ### Alias
 
