@@ -15,7 +15,7 @@ To build s3cp run Ant
 
 The dist folder will contain the compiled application name s3cp-cmdline-VERSION.jar. This jar is built with 'one-jar' so you can run it with the following command.
 
-   $ java -jar s3cp-cmdline-VERSION.jar -h
+    $ java -jar s3cp-cmdline-VERSION.jar -h
 
 ### Amazon Keys
 
