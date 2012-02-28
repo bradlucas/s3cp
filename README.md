@@ -6,7 +6,6 @@ s3cp - Amazon S3 command line copy (cp) program
 S3cp works like the Unix cp program allowing you to put files into S3 or to retrieve them from the command line.
 
 ## Installation
----------------
 
 ### To build s3cp
 
@@ -43,7 +42,6 @@ With that, s3cp will run from the command line through the alias
 
 
 ## Usage
---------
 
 s3cp uses a URI syntax to reference the objects in your S3 account. For example, if you have a bucket called test-files with an object tmp/test.sh you'd be able to get it from S3 with the following command.
 
@@ -67,7 +65,6 @@ Copy from S3 [GET]
 
 
 ## Feedback
------------
 
 If you try s3cp and have a suggestion please let me know.
 
