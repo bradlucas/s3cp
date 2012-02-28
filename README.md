@@ -27,8 +27,8 @@ Inside the directory create a file called s3cp.properties
 
 In the s3cp.properties file create the following entries:
 
-s3.accessKey=YOUR-VALUE-HERE
-s3.secretKey=YOUR-VALUE-HERE
+   s3.accessKey=YOUR-VALUE-HERE
+   s3.secretKey=YOUR-VALUE-HERE
 
 ### Alias
 
@@ -47,25 +47,21 @@ s3cp uses a URI syntax to reference the objects in your S3 account. For example,
 
     $ s3cp s3://test-files/tmp/test.sh test.sh
 
-
-Copy to S3 [PUT]
+### Copy to S3 [PUT]
 
     $ s3cp local-file s3://bucket/object[/]
 
-    If object has a trailing slash it will be assumed to mean a directory
-    and the local-file's filename will be appended to object.
+If object has a trailing slash it will be assumed to mean a directory and the local-file's filename will be appended to object.
 
-Copy from S3 [GET]
+### Copy from S3 [GET]
 
     $ s3cp s3://bucket/object [local-file]
 
-
-    If local-file is not present a filename from object will be used in
-    the current directory.
+If local-file is not present a filename from object will be used in the current directory.
 
 
 ## Feedback
 
 If you try s3cp and have a suggestion please let me know.
 
-brad@beaconhill.com
+   brad@beaconhill.com
