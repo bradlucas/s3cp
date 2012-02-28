@@ -9,7 +9,6 @@ S3cp works like the Unix cp program allowing you to put files into S3 or to retr
 ---------------
 
 ### To build s3cp
------------------
 
 To build s3cp run Ant
 
@@ -20,7 +19,6 @@ The dist folder will contain the compiled application name s3cp-cmdline-VERSION.
    $ java -jar s3cp-cmdline-VERSION.jar -h
 
 ### Amazon Keys
----------------
 
 Before you can interact with your S3 account you need to setup a file with your access and secret key.
 
@@ -34,7 +32,6 @@ s3.accessKey=YOUR-VALUE-HERE
 s3.secretKey=YOUR-VALUE-HERE
 
 ### Alias
----------
 
 There is a script called s3cp.sh in ~/secp/src/scripts that you setup with an alias.
 
@@ -53,8 +50,6 @@ s3cp uses a URI syntax to reference the objects in your S3 account. For example,
     $ s3cp s3://test-files/tmp/test.sh test.sh
 
 
-
-
 Copy to S3 [PUT]
 
     $ s3cp local-file s3://bucket/object[/]
@@ -71,8 +66,8 @@ Copy from S3 [GET]
     the current directory.
 
 
-### Feedback
-------------
+## Feedback
+-----------
 
 If you try s3cp and have a suggestion please let me know.
 
