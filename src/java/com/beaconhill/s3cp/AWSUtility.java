@@ -103,8 +103,10 @@ public class AWSUtility {
 			// } else {
 			service = new RestS3Service(credentials);
 			// }
-		} catch (S3ServiceException serviceException) {
-			log.debug(serviceException.getMessage());
+                } catch (Exception e) {
+                    log.debug(e.getMessage());
+		// } catch (S3ServiceException serviceException) {
+		// 	log.debug(serviceException.getMessage());
 		}
 	}
 
