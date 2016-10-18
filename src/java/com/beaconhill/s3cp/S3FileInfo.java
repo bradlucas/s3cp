@@ -90,10 +90,17 @@ public class S3FileInfo {
 
 	static boolean hasTrailingSlash(String path) {
 		boolean rtn = false;
-		char c = path.charAt(path.length()-1);
-		if (c == '/') {
+                int len = path.length();
+                if (len > 0) {
+                    char c = path.charAt(len - 1);
+                    if (c == '/') {
 			rtn = true;
-		}
+                    }
+                } else {
+                    // no path is a uri with just the bucket name
+                    // return true as if it had a trailing slash
+                    rtn = true;                    
+                }
 		return rtn;
 	}
 	
