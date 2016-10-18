@@ -70,6 +70,10 @@ brad@beaconhill.com
 
 ## Versions
 
+### 1.0.2
+
+- Bug fix if missing slash on path with only bucket
+
 ### 1.0.1
 
 - Bumped library versions
