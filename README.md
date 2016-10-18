@@ -66,3 +66,14 @@ If local-file is not present a filename from object will be used in the current 
 If you try s3cp and have a suggestion please let me know.
 
 brad@beaconhill.com
+
+
+## Versions
+
+### 1.0.1
+
+- Bumped library versions
+
+### 1.0.0
+
+- Original 2009 version
